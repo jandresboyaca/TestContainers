@@ -8,6 +8,7 @@ class TestcontainersApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
