@@ -12,7 +12,7 @@ import reactor.test.StepVerifier;
 
 @SpringBootTest
 @Testcontainers
-class TestcontainersApplicationTests {
+class TestcontainersIntegrationTest {
 
     @Autowired
     private Service service;
@@ -33,7 +33,6 @@ class TestcontainersApplicationTests {
         StepVerifier.create(stringMono)
                 .expectNext("[{\"id\":1,\"name\":\"John\"},{\"id\":2,\"name\":\"Marry\"}]")
                 .verifyComplete();
-
 
     }
 
