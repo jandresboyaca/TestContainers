@@ -4,13 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
 @Slf4j
 public class Service {
 
-    public void callExternalAPI() {
+    public Mono<String> callExternalAPI() {
         WebClient webClient = WebClient.create();
 
         Mono<String> result = webClient.get()
@@ -18,6 +19,9 @@ public class Service {
                 .retrieve()
                 .bodyToMono(String.class);
 
-        result.subscribe(log::info);
+        result.subscribeOn(Schedulers.parallel()).subscribe(log::info);
+
+        return result;
+
     }
 }
