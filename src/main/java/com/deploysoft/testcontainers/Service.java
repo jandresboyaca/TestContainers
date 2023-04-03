@@ -6,10 +6,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.util.UUID;
+
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
 @Slf4j
 public class Service {
+
+    private final Repository repository;
 
     public Mono<String> callExternalAPI() {
         WebClient webClient = WebClient.create();
@@ -24,4 +28,11 @@ public class Service {
         return result;
 
     }
+
+
+    public Trader save() {
+        Trader trader = Trader.builder().traderId(UUID.randomUUID().toString()).build();
+        return repository.save(trader);
+    }
+
 }
